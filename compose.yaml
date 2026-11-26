@@ -1,0 +1,6 @@
+services:
+  octokit-sbom:
+    image: node:24-alpine
+    volumes:
+      - ".:/app"
+    working_dir: /app
