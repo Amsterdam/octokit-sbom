@@ -52,8 +52,6 @@ export interface SBOMUUID extends RepoSBOMUUID {
 }
 
 export class SBOMGenerator {
-    private failedRepos: string[] = [];
-
     public constructor(private readonly octokit: Octokit) {}
 
     public async generateSBOM(repository: string): Promise<RepoSBOMUUID> {
@@ -69,11 +67,9 @@ export class SBOMGenerator {
         );
 
         if (response.status !== 201) {
-            this.failedRepos.push(repository);
             throw new Error("Failed to request generating of SBOM!")
         }
         if (response.data.sbom_url === undefined) {
-            this.failedRepos.push(repository);
             throw new Error("Requesting SBOM successful, but no polling url was provided!");
         }
 
@@ -82,10 +78,6 @@ export class SBOMGenerator {
         console.log(`SBOM url: ${response.data.sbom_url}`);
 
         return { repository: repository, sbomUUID: sbomUUID };
-    }
-
-    public getFailedRepos(): string[] {
-        return this.failedRepos;
     }
 }
 
