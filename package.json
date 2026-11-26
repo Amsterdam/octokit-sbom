@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Amsterdam/octokit-sbom#readme",
   "devDependencies": {
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "octokit": "^5.0.5"
   }
 }
